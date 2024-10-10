@@ -61,6 +61,8 @@ std::pair<std::vector<int>, std::vector<int>> splitCluster(const std::vector<int
         if (i == point) continue;
         cluster2.push_back(cluster[i]);
     }
+
+    std::cout << "Splitting cluster at point " << cluster[point] << " with distance " << maxDist << std::endl;
     
     while (true) {
         // Assign the remaining points to one of the first clusters based on linkage distance
@@ -93,6 +95,13 @@ std::pair<std::vector<int>, std::vector<int>> splitCluster(const std::vector<int
         
     }
 
+    std::cout << "Cluster 1: ";
+    for (int i : cluster1) std::cout << i << " ";
+    std::cout << " | ";
+    std::cout << "Cluster 2: ";
+    for (int i : cluster2) std::cout << i << " ";
+    std::cout << " | Distance: " << calculateClusterDistance(cluster1, cluster2, distanceMatrix, linkage) << std::endl;
+    
     return {cluster1, cluster2};
 }
 
@@ -147,7 +156,7 @@ int main() {
     std::vector<int> initialCluster = {0, 1, 2, 3, 4, 5, 6, 7};
 
     // Perform divisive clustering with a chosen linkage type
-    divisiveClustering(initialCluster, distanceMatrix, LinkageType::COMPLETE);
+    divisiveClustering(initialCluster, distanceMatrix, LinkageType::SINGLE);
 
     return 0;
 }
